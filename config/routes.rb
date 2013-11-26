@@ -1,5 +1,5 @@
 MongoRailsApp::Application.routes.draw do
-  get "backend/index"
+  get "backend", to: 'backend#index', as: 'backend'
   resources :stories
 
   # The priority is based upon order of creation: first created -> highest priority.

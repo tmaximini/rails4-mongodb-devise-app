@@ -1,0 +1,11 @@
+<ul ng-model="stories">
+  <div ng-repeat="story in stories">
+
+    <h2>{{story.title}}</h2>
+
+    <p class="element" ng-repeat="(key, value) in story.elements">
+      {{key}}: {{value}}
+    </p>
+
+  </div>
+</ul>
