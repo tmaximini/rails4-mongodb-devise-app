@@ -1,4 +1,5 @@
 MongoRailsApp::Application.routes.draw do
+  devise_for :users
   get "backend", to: 'backend#index', as: 'backend'
   resources :stories
 

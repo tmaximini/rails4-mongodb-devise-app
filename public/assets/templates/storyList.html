@@ -1,11 +1,11 @@
-<ul ng-model="stories">
-  <div ng-repeat="story in stories">
+<div class="storyBackend">
+  <ul class="storyList" ng-model="stories">
+    <div ng-repeat="story in stories">
 
-    <h2>{{story.title}}</h2>
+      <h2>{{story.title}}</h2>
+      <button ng-click="setCurrentStory(story)">Edit</button>
 
-    <p class="element" ng-repeat="(key, value) in story.elements">
-      {{key}}: {{value}}
-    </p>
 
-  </div>
-</ul>
+    </div>
+  </ul>
+</div>

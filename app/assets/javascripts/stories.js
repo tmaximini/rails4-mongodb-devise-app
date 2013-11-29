@@ -16,22 +16,32 @@ angular.module('storiesApp', ['ngResource', 'ngRoute'])
     'Story',
     function ($scope, Story) {
 
+      var monthNames = [ "January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December" ];
+
       $scope.stories = [];
+      $scope.currentStory = null;
+
+      $scope.setCurrentStory = function (story) {
+        console.log('current story: ', story);
+        $scope.currentStory = story;
+      };
 
       $scope.newStory = function () {
         var newStory = new Story();
         newStory.title = "Story_" + ($scope.stories.length + 1);
-        newStory.date = new Date();
-        var obj = {
+        var d = new Date();
+        newStory.date = monthNames[d.getMonth()] + ' ' + d.getFullYear();
+        var obj = [{
           type: 'paragraph',
           position: 0,
           content: 'lorem ipsum'
-        };
+        }];
         newStory.elements = JSON.stringify(obj);
-        newStory.$save(function (story) {
+        newStory.saveOrUpdate(function (story) {
+          story.elements = JSON.parse(story.elements);
           $scope.stories.push(story);
         });
-
       };
 
       Story.query({}, function (data) {
@@ -41,6 +51,14 @@ angular.module('storiesApp', ['ngResource', 'ngRoute'])
         $scope.stories = data;
       });
 
+      $scope.updateStory = function (story) {
+        var _story = jQuery.extend(true, {}, story);
+        _story.elements = JSON.stringify(_story.elements);
+        _story.saveOrUpdate(function (savedStory) {
+          console.log('story was successfully saved!', savedStory);
+        });
+      };
+
 
     }
   ])
@@ -49,14 +67,32 @@ angular.module('storiesApp', ['ngResource', 'ngRoute'])
     '$http',
     function ($resource, $http) {
 
+
       // public api here
-      return $resource(
+      var Story = $resource(
 
         '/stories/:id',
         { id: '@id' },
         { update: { method: 'PUT' }}
 
       );
+
+
+      Story.prototype.saveOrUpdate = function (callback) {
+        if (this._id) {
+          console.log('called update', this);
+          $http.put('/stories/' + this._id, this)
+               .success(callback)
+               .error(function (e) { console.log('an error occured', e); });
+        } else {
+          console.log('called create', this);
+          return this.$save(callback);
+        }
+      };
+
+      return Story;
+
+
     }
   ])
   .directive('numberOfStories', [function () {
@@ -75,12 +111,20 @@ angular.module('storiesApp', ['ngResource', 'ngRoute'])
       restrict: 'E',
       controller: 'BackendCtrl',
       replace: true,
-      scope: {
-        stories: '@'
-      },
       templateUrl: '../assets/templates/storyList.html',
       link: function (scope, iElement, iAttrs) {
 
       }
     };
-  }]);
+  }])
+  .directive('storyForm', [function () {
+      return {
+        restrict: 'E',
+        controller: 'BackendCtrl',
+        replace: true,
+        templateUrl: '../assets/templates/storyForm.html',
+        link: function (scope, iElement, iAttrs) {
+
+        }
+      };
+    }]);

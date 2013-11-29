@@ -1,0 +1,26 @@
+
+<form ng-submit="updateStory(currentStory)" class="storyForm" ng-show="(currentStory != null)" class="elements">
+
+  <input ng-model="currentStory.title" placeholder="Story title"> Story Title<br>
+
+  <input ng-model="currentStory.date" placeholder="Story date"> Story Date<br>
+
+
+  <h3>Story Elements
+  <div class="elements" ng-repeat="element in currentStory.elements | orderBy: 'element.position' ">
+    <table>
+      <tr>
+        <td>position</td><td><input ng-model="element.position"></td>
+      </tr>
+      <tr>
+        <td>Type:</td><td><input ng-model="element.type"></td>
+      </tr>
+      <tr>
+        <td>content:</td><td><input ng-model="element.content"></td>
+      </tr>
+    </table>
+  </div>
+
+  <input type="submit" value="save">
+
+</form>
