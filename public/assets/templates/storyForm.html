@@ -13,14 +13,16 @@
         <td>position</td><td><input ng-model="element.position"></td>
       </tr>
       <tr>
-        <td>Type:</td><td><input ng-model="element.type"></td>
+        <td>Type:</td><td><select ng-model="element.type" ng-options="type for type in storyElementTypes"></select></td>
       </tr>
       <tr>
         <td>content:</td><td><input ng-model="element.content"></td>
       </tr>
     </table>
-  </div>
 
+  </div>
+  <button ng-click="addElement(currentStory)">add element</button>
+  <br><br>
   <input type="submit" value="save">
 
 </form>

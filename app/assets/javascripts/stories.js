@@ -19,6 +19,8 @@ angular.module('storiesApp', ['ngResource', 'ngRoute'])
       var monthNames = [ "January", "February", "March", "April", "May", "June",
       "July", "August", "September", "October", "November", "December" ];
 
+      $scope.storyElementTypes = ['paragraph', 'quotation', 'image'];
+
       $scope.stories = [];
       $scope.currentStory = null;
 
@@ -32,12 +34,14 @@ angular.module('storiesApp', ['ngResource', 'ngRoute'])
         newStory.title = "Story_" + ($scope.stories.length + 1);
         var d = new Date();
         newStory.date = monthNames[d.getMonth()] + ' ' + d.getFullYear();
-        var obj = [{
+        newStory.elements = [];
+        var obj = {
           type: 'paragraph',
           position: 0,
           content: 'lorem ipsum'
-        }];
-        newStory.elements = JSON.stringify(obj);
+        };
+        newStory.elements.push(obj);
+        newStory.elements = JSON.stringify(newStory.elements);
         newStory.saveOrUpdate(function (story) {
           story.elements = JSON.parse(story.elements);
           $scope.stories.push(story);
@@ -57,6 +61,15 @@ angular.module('storiesApp', ['ngResource', 'ngRoute'])
         _story.saveOrUpdate(function (savedStory) {
           console.log('story was successfully saved!', savedStory);
         });
+      };
+
+      $scope.addElement = function (story) {
+        var obj = {
+          type: 'paragraph',
+          position: story.elements.length + 1,
+          content: 'lorem ipsum'
+        };
+        story.elements.push(obj);
       };
 
 
