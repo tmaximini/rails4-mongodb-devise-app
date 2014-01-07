@@ -11,10 +11,15 @@ angular.module('storiesApp', ['ngResource', 'ngRoute'])
     //  });
 
   }])
+
+
+    // CONTROLLER
+
   .controller('BackendCtrl', [
     '$scope',
+    '$http',
     'Story',
-    function ($scope, Story) {
+    function ($scope, $http, Story) {
 
       var monthNames = [ "January", "February", "March", "April", "May", "June",
       "July", "August", "September", "October", "November", "December" ];
@@ -75,21 +80,20 @@ angular.module('storiesApp', ['ngResource', 'ngRoute'])
 
     }
   ])
+
+    // STORY FACTORY
+
   .factory('Story', [
     '$resource',
     '$http',
     function ($resource, $http) {
 
-
       // public api here
       var Story = $resource(
-
         '/stories/:id',
         { id: '@id' },
         { update: { method: 'PUT' }}
-
       );
-
 
       Story.prototype.saveOrUpdate = function (callback) {
         if (this._id) {
@@ -105,9 +109,12 @@ angular.module('storiesApp', ['ngResource', 'ngRoute'])
 
       return Story;
 
-
     }
   ])
+
+
+    // DIRECTIVES
+
   .directive('numberOfStories', [function () {
     return {
       restrict: 'A',
@@ -119,6 +126,7 @@ angular.module('storiesApp', ['ngResource', 'ngRoute'])
       }
     };
   }])
+
   .directive('storyList', [function () {
     return {
       restrict: 'E',
@@ -130,14 +138,30 @@ angular.module('storiesApp', ['ngResource', 'ngRoute'])
       }
     };
   }])
-  .directive('storyForm', [function () {
-      return {
-        restrict: 'E',
-        controller: 'BackendCtrl',
-        replace: true,
-        templateUrl: '../assets/templates/storyForm.html',
-        link: function (scope, iElement, iAttrs) {
 
-        }
-      };
-    }]);
+  .directive('storyForm', [function () {
+    return {
+      restrict: 'E',
+      controller: 'BackendCtrl',
+      replace: true,
+      templateUrl: '../assets/templates/storyForm.html',
+      link: function (scope, iElement, iAttrs) {
+
+      }
+    };
+  }])
+
+  .directive('contentElementFields', [function () {
+    return {
+      restrict: 'EA',
+      controller: 'BackendCtrl',
+      replace: true,
+      scope: {
+        contentElement: '@'
+      },
+      templateUrl: '../assets/templates/contentElementFields.html',
+      link: function (scope, iElement, iAttrs) {
+
+      }
+    };
+  }]);
