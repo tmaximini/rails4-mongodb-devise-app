@@ -1,14 +1,14 @@
 angular.module('storiesApp', ['ngResource', 'ngRoute'])
   .config(['$routeProvider', function ($routeProvider) {
 
-    //$routeProvider
-    //  .when('/list', {
-    //    templateUrl: '../templates/storiesIndex.html',
-    //    controller: 'BackendCtrl'
-    //  })
-    //  .otherwise({
-    //    redirectTo: '/'
-    //  });
+    $routeProvider
+      .when('/list', {
+        templateUrl: '../templates/storiesIndex.html',
+        controller: 'BackendCtrl'
+      })
+      .otherwise({
+        redirectTo: '/'
+      });
 
   }])
 
@@ -86,7 +86,7 @@ angular.module('storiesApp', ['ngResource', 'ngRoute'])
   .factory('Story', [
     '$resource',
     '$http',
-    function ($resource, $http) {
+    function ($resource) {
 
       // public api here
       var Story = $resource(
@@ -159,9 +159,33 @@ angular.module('storiesApp', ['ngResource', 'ngRoute'])
       scope: {
         contentElement: '@'
       },
-      templateUrl: '../assets/templates/contentElementFields.html',
-      link: function (scope, iElement, iAttrs) {
-
-      }
+      templateUrl: '../assets/templates/contentElementFields.html'
     };
-  }]);
+  }])
+
+  .directive('paragraphFields', [function () {
+    return {
+      restrict: 'EA',
+      controller: 'BackendCtrl',
+      replace: true,
+      templateUrl: '../assets/templates/stories/paragraph.html'
+    };
+  }])
+
+  .directive('quoteFields', [function () {
+    return {
+      restrict: 'EA',
+      controller: 'BackendCtrl',
+      replace: true,
+      templateUrl: '../assets/templates/stories/quote.html'
+    };
+  }])
+
+  .directive('imageFields', [function () {
+    return {
+      restrict: 'EA',
+      controller: 'BackendCtrl',
+      replace: true,
+      templateUrl: '../assets/templates/stories/image.html'
+    };
+  }])

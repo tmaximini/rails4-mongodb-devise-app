@@ -8,15 +8,19 @@
 
   <h3>Story Elements
   <div class="elements" ng-repeat="element in currentStory.elements | orderBy: 'element.position' ">
-    <table>
-      <tr>
-        <td>position</td><td><input ng-model="element.position"></td>
-      </tr>
-      <tr>
-        <td>Type:</td><td><select ng-model="element.type" ng-options="type for type in storyElementTypes"></select></td>
-      </tr>
-    </table>
-    <content-element-fields content-element="element"></content-element-fields>
+    <div>
+      <div>
+        <span>position</span><span><input ng-model="element.position"></span>
+      </div>
+      <div>
+        <span>Type:</span><span><select ng-model="element.type" ng-options="type for type in storyElementTypes"></select></span>
+      </div>
+      <div>
+        <paragraph-fields ng-if="element.type === 'paragraph'"></paragraph-fields>
+        <quote-fields ng-if="element.type === 'quotation'"></quote-fields>
+        <image-fields ng-if="element.type === 'image'"></image-fields>
+      </div>
+    </div>
 
   </div>
   <button ng-click="addElement(currentStory)">add element</button>
