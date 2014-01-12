@@ -86,7 +86,7 @@ angular.module('storiesApp', ['ngResource', 'ngRoute'])
   .factory('Story', [
     '$resource',
     '$http',
-    function ($resource) {
+    function ($resource, $http) {
 
       // public api here
       var Story = $resource(
