@@ -1,12 +1,14 @@
 <div class="imageFields form-group">
   <div>
-    <span>Image Name</span><span><input ng-model="element.image.name"></span>
+    <label for="imageName">Image Name</label>
+    <input type="text" class="form-control" ng-model="element.image.name"></span>
   </div>
   <div>
-    <span>Url / Upload</span><span><input type="file" ng-model="element.image.url"></span>
+    <label for="image">Upload</label>
+    <input type="file" name="image" ng-model="element.image.url">
   </div>
   <div>
-    <span>preview</span>
+    <h6>image preview</h6>
     <img src="">
   </div>
 </div>

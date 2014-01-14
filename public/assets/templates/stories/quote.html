@@ -1,8 +1,12 @@
 <div class="quoteFields form-group">
   <div>
-    <span>Class name (quote)</span><span><input ng-model="element.quote.class"></span>
+    <div>
+     <label for="quoteClass">Quote Class</label>
+     <input type="text" name="quoteClass" class="form-control" ng-model="element.quote.class">
+    </div>
   </div>
   <div>
-    <span>Content</span><span><textarea ng-model="element.quote.content"></textarea>
+    <label for="quoteContent">Quote Content</label>
+    <textarea name="quoteContent" class="form-control" ng-model="element.quote.content"></textarea>
   </div>
 </div>

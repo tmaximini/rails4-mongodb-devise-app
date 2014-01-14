@@ -1,19 +1,25 @@
 
 <form role="form" ng-submit="updateStory(currentStory)" class="storyForm" ng-show="(currentStory != null)" class="elements">
 
-  <input ng-model="currentStory.title" placeholder="Story title"> Story Title<br>
+  <h3>Story Info</h3>
 
-  <input ng-model="currentStory.date" placeholder="Story date"> Story Date<br>
+  <label for="title">Story Title</label>
+  <input class="form-control" type="text" name="title" ng-model="currentStory.title" placeholder="Story title">
+
+  <label for="date">Story Date</label>
+  <input class="form-control" type="text" name="date" ng-model="currentStory.date" placeholder="Story date">
 
 
   <h3>Story Elements</h3>
-  <div class="elements" ng-repeat="element in currentStory.elements | orderBy: 'element.position' ">
+  <div class="storyElement" ng-repeat="element in currentStory.elements | orderBy: 'element.position' ">
     <div>
       <div class="form-group">
-        <span>position</span><span><input ng-model="element.position"></span>
+        <label for="position">Position</label>
+        <input name="position" type="number" class="form-control" ng-model="element.position">
       </div>
       <div class="form-group">
-        <span>Type:</span><span><select ng-model="element.type" ng-options="type for type in storyElementTypes"></select></span>
+        <label for="type">Type</label>
+        <select name="type" class="form-control" ng-model="element.type" ng-options="type for type in storyElementTypes"></select>
       </div>
       <div>
         <paragraph-fields ng-if="element.type === 'paragraph'"></paragraph-fields>
