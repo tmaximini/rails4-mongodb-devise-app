@@ -11,12 +11,9 @@
 
 
   <h3>Story Elements</h3>
-  <div class="storyElement" ng-repeat="element in currentStory.elements | orderBy: 'element.position' ">
-    <div>
-      <div class="form-group">
-        <label for="position">Position</label>
-        <input name="position" type="number" class="form-control" ng-model="element.position">
-      </div>
+  <ul ui-sortable="sortableOptions" ng-model="currentStory.elements">
+    <li class="storyElement" ng-repeat="element in currentStory.elements" style="-webkit-user-select: none;">
+
       <div class="form-group">
         <label for="type">Type</label>
         <select name="type" class="form-control" ng-model="element.type" ng-options="type for type in storyElementTypes"></select>
@@ -26,9 +23,13 @@
         <quote-fields ng-if="element.type === 'quotation'"></quote-fields>
         <image-fields ng-if="element.type === 'image'"></image-fields>
       </div>
-    </div>
+      <div class="actions">
+        <button class="btn btn-danger" confirmation-needed="Remove this element?" ng-click="removeElement($index)">remove element</button>
+      </div>
 
-  </div>
+    </li>
+
+  </ul>
   <button ng-click="addElement(currentStory)">add element</button>
   <br><br>
   <input type="submit" value="save">

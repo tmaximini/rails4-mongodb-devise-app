@@ -14,7 +14,13 @@
   float: left;
 }
 
+ul {
+  list-style-type: none;
+  list-style: none;
+  padding: 0;
+}
+
 .storyElement {
   margin: 10px 0;
-  border-bottom: 1px dashed #ddd;
+  border: 1px dashed #ddd;
 }
