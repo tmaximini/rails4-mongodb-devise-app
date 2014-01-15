@@ -49,6 +49,7 @@ angular.module('storiesApp', ['ngResource', 'ngRoute', 'ngUpload', 'ui.sortable'
         var d = new Date();
         newStory.date = monthNames[d.getMonth()] + ' ' + d.getFullYear();
         newStory.elements = [];
+        newStory.className = 'default';
         var obj = {
           type: 'paragraph',
           position: 0,
